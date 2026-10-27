@@ -1,0 +1,152 @@
+/**
+ * These arguments were used when this file was generated. They will be automatically applied on subsequent loads
+ * via the GUI or CLI. Run CLI with '--help' for additional information on how to override these arguments.
+ * @cliArgs --device "F28004x" --part "F28004x_100PZ" --package "F28004x_100PZ" --context "system" --product "C2000WARE@5.02.00.00"
+ * @v2CliArgs --device "TMS320F280049C" --package "100PZ" --context "system" --product "C2000WARE@5.02.00.00"
+ * @versions {"tool":"1.21.0+3721"}
+ */
+
+/**
+ * Import the modules used in this configuration.
+ */
+const adc       = scripting.addModule("/driverlib/adc.js", {}, false);
+const adc1      = adc.addInstance();
+const adc2      = adc.addInstance();
+const adc3      = adc.addInstance();
+const asysctl   = scripting.addModule("/driverlib/asysctl.js");
+const cputimer  = scripting.addModule("/driverlib/cputimer.js", {}, false);
+const cputimer1 = cputimer.addInstance();
+const epwm      = scripting.addModule("/driverlib/epwm.js", {}, false);
+const epwm1     = epwm.addInstance();
+const epwm2     = epwm.addInstance();
+const gpio      = scripting.addModule("/driverlib/gpio.js", {}, false);
+const gpio1     = gpio.addInstance();
+const gpio2     = gpio.addInstance();
+const gpio3     = gpio.addInstance();
+const gpio4     = gpio.addInstance();
+const sci       = scripting.addModule("/driverlib/sci.js", {}, false);
+const sci1      = sci.addInstance();
+
+/**
+ * Write custom configuration values to the imported modules.
+ */
+adc1.$name             = "myADCA";
+adc1.adcClockPrescaler = "ADC_CLK_DIV_4_0";
+adc1.enabledSOCs       = ["ADC_SOC_NUMBER0","ADC_SOC_NUMBER1"];
+adc1.soc0Channel       = "ADC_CH_ADCIN2";
+adc1.soc0SampleWindow  = 16;
+adc1.soc0Trigger       = "ADC_TRIGGER_EPWM1_SOCA";
+adc1.soc1Channel       = "ADC_CH_ADCIN3";
+adc1.soc1Trigger       = "ADC_TRIGGER_EPWM1_SOCA";
+adc1.soc1SampleWindow  = 16;
+
+adc2.adcClockPrescaler = "ADC_CLK_DIV_4_0";
+adc2.enabledSOCs       = ["ADC_SOC_NUMBER0","ADC_SOC_NUMBER1"];
+adc2.soc0SampleWindow  = 16;
+adc2.soc0Trigger       = "ADC_TRIGGER_EPWM1_SOCA";
+adc2.soc1Trigger       = "ADC_TRIGGER_EPWM1_SOCA";
+adc2.soc1SampleWindow  = 16;
+adc2.$name             = "myADCB";
+adc2.adcBase           = "ADCB_BASE";
+adc2.soc0Channel       = "ADC_CH_ADCIN1";
+adc2.soc1Channel       = "ADC_CH_ADCIN2";
+
+adc3.$name                   = "myADCC";
+adc3.adcBase                 = "ADCC_BASE";
+adc3.adcClockPrescaler       = "ADC_CLK_DIV_4_0";
+adc3.enabledSOCs             = ["ADC_SOC_NUMBER0","ADC_SOC_NUMBER1","ADC_SOC_NUMBER2"];
+adc3.soc0Channel             = "ADC_CH_ADCIN1";
+adc3.soc0SampleWindow        = 16;
+adc3.soc1Channel             = "ADC_CH_ADCIN2";
+adc3.soc1SampleWindow        = 16;
+adc3.soc2Channel             = "ADC_CH_ADCIN3";
+adc3.soc2SampleWindow        = 16;
+adc3.soc1Trigger             = "ADC_TRIGGER_EPWM1_SOCA";
+adc3.soc0Trigger             = "ADC_TRIGGER_EPWM1_SOCA";
+adc3.soc2Trigger             = "ADC_TRIGGER_EPWM1_SOCA";
+adc3.interruptPulseMode      = "ADC_PULSE_END_OF_CONV";
+adc3.enabledInts             = ["ADC_INT_NUMBER1"];
+adc3.interrupt1SOCSource     = "ADC_SOC_NUMBER2";
+adc3.enableInterrupt1        = true;
+adc3.registerInterrupts      = ["1"];
+adc3.adcInt1.enableInterrupt = true;
+
+asysctl.analogReference        = "INTERNAL";
+asysctl.analogReferenceVoltage = "1P65";
+
+const multiplier2         = system.clockTree["PLL_IMULT"];
+multiplier2.multiplyValue = 10;
+
+const mux2       = system.clockTree["OSCCLKSRCSEL"];
+mux2.inputSelect = "X1_XTAL";
+
+cputimer1.$name                    = "myCPUTIMER0";
+cputimer1.enableInterrupt          = true;
+cputimer1.registerInterrupts       = true;
+cputimer1.startTimer               = true;
+cputimer1.timerPrescaler           = 9;
+cputimer1.timerPeriod              = 9999;
+cputimer1.timerInt.enableInterrupt = true;
+
+epwm1.$name                                                    = "myEPWM1";
+epwm1.epwmTimebase_emulationMode                               = "EPWM_EMULATION_FREE_RUN";
+epwm1.epwmTimebase_hsClockDiv                                  = "EPWM_HSCLOCK_DIVIDER_1";
+epwm1.epwmTimebase_period                                      = 249;
+epwm1.epwmTimebase_counterMode                                 = "EPWM_COUNTER_MODE_UP";
+epwm1.epwmActionQualifier_EPWM_AQ_OUTPUT_A_ON_TIMEBASE_PERIOD  = "EPWM_AQ_OUTPUT_HIGH";
+epwm1.epwmActionQualifier_EPWM_AQ_OUTPUT_A_ON_TIMEBASE_UP_CMPA = "EPWM_AQ_OUTPUT_LOW";
+epwm1.epwmDeadband_polarityFED                                 = "EPWM_DB_POLARITY_ACTIVE_LOW";
+epwm1.epwmDeadband_enableRED                                   = true;
+epwm1.epwmDeadband_delayRED                                    = 10;
+epwm1.epwmDeadband_enableFED                                   = true;
+epwm1.epwmDeadband_delayFED                                    = 10;
+epwm1.epwmTripZone_EPWM_TZ_ACTION_EVENT_TZA                    = "EPWM_TZ_ACTION_LOW";
+epwm1.epwmTripZone_EPWM_TZ_ACTION_EVENT_TZB                    = "EPWM_TZ_ACTION_LOW";
+epwm1.epwmEventTrigger_EPWM_SOC_A_triggerEnable                = true;
+epwm1.epwmEventTrigger_EPWM_SOC_A_triggerSource                = "EPWM_SOC_TBCTR_ZERO";
+epwm1.epwmEventTrigger_EPWM_SOC_A_triggerEventPrescalar        = "10";
+epwm1.epwm.$assign                                             = "EPWM1";
+epwm1.epwm.epwm_aPin.$assign                                   = "GPIO0";
+epwm1.epwm.epwm_bPin.$assign                                   = "GPIO1";
+
+epwm2.epwmTimebase_emulationMode                               = "EPWM_EMULATION_FREE_RUN";
+epwm2.epwmTimebase_hsClockDiv                                  = "EPWM_HSCLOCK_DIVIDER_1";
+epwm2.epwmTimebase_period                                      = 249;
+epwm2.epwmTimebase_counterMode                                 = "EPWM_COUNTER_MODE_UP";
+epwm2.epwmActionQualifier_EPWM_AQ_OUTPUT_A_ON_TIMEBASE_UP_CMPA = "EPWM_AQ_OUTPUT_LOW";
+epwm2.epwmDeadband_polarityFED                                 = "EPWM_DB_POLARITY_ACTIVE_LOW";
+epwm2.epwmDeadband_enableRED                                   = true;
+epwm2.epwmDeadband_delayRED                                    = 10;
+epwm2.epwmDeadband_enableFED                                   = true;
+epwm2.epwmDeadband_delayFED                                    = 10;
+epwm2.epwmTripZone_EPWM_TZ_ACTION_EVENT_TZA                    = "EPWM_TZ_ACTION_LOW";
+epwm2.epwmTripZone_EPWM_TZ_ACTION_EVENT_TZB                    = "EPWM_TZ_ACTION_LOW";
+epwm2.$name                                                    = "myEPWM2";
+epwm2.epwmActionQualifier_EPWM_AQ_OUTPUT_A_ON_TIMEBASE_UP_CMPB = "EPWM_AQ_OUTPUT_HIGH";
+epwm2.epwmActionQualifier_EPWM_AQ_OUTPUT_A_ON_TIMEBASE_PERIOD  = "EPWM_AQ_OUTPUT_HIGH";
+epwm2.epwm.$assign                                             = "EPWM2";
+epwm2.epwm.epwm_aPin.$assign                                   = "GPIO2";
+epwm2.epwm.epwm_bPin.$assign                                   = "GPIO3";
+
+gpio1.$name           = "myGPIO28";
+gpio1.direction       = "GPIO_DIR_MODE_OUT";
+gpio1.gpioPin.$assign = "GPIO28";
+
+gpio2.$name           = "LED1";
+gpio2.direction       = "GPIO_DIR_MODE_OUT";
+gpio2.padConfig       = "OD_PULLUP";
+gpio2.gpioPin.$assign = "GPIO22_VFBSW";
+
+gpio3.$name           = "LED2";
+gpio3.direction       = "GPIO_DIR_MODE_OUT";
+gpio3.padConfig       = "OD_PULLUP";
+gpio3.gpioPin.$assign = "GPIO23_VSW";
+
+gpio4.$name           = "KEY0";
+gpio4.padConfig       = "PULLUP";
+gpio4.gpioPin.$assign = "GPIO27";
+
+sci1.$name                 = "mySCIA";
+sci1.sci.$assign           = "SCIA";
+sci1.sci.sci_rxPin.$assign = "GPIO35/TDI";
+sci1.sci.sci_txPin.$assign = "GPIO37/TDO";
